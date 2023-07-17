@@ -13,6 +13,16 @@ The Wheel of Life is a personal assessment tool that helps us visualize and bala
 4. Click "Update" Button: After adjusting the scales, click the "Update" button to visualize the Wheel of Life.
 5. Analyze and Reflect: Observe the Wheel of Life chart to identify areas for improvement or those that need more attention.
 
+## Screenshots
+
+Below are some screenshots of the Wheel of Life tool:
+
+### Screenshot 1: Plotly Radar Chart
+
+![Plotly Radar Chart](/screenshots/wheel-of-life.png)
+
+_Figure 1: Plotly Radar Chart_
+
 ## Examples
 
 Below are some examples of how the Wheel of Life can be used:
