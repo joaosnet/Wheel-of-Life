@@ -8,7 +8,7 @@ The Wheel of Life is a personal assessment tool that helps us visualize and bala
 ## How to Use
 
 1. Clone the Repository: `git clone https://github.com/your-username/wheel-of-life.git`
-2. Open the Python script: `cd wheel-of-life && python wheel_of_life.py`
+2. Open the Python script: `cd wheel-of-life && python wheel_of_life.ipynb`
 3. Adjust the Scales: A graphical interface will be displayed with 12 sliders. Adjust each slider to indicate your satisfaction or dedication level in the corresponding life aspect (scale: 1 to 10).
 4. Click "Update" Button: After adjusting the scales, click the "Update" button to visualize the Wheel of Life.
 5. Analyze and Reflect: Observe the Wheel of Life chart to identify areas for improvement or those that need more attention.
@@ -42,6 +42,5 @@ Intellectual: 5  |  Financial: 4  |  Career: 5  |  Emotional (again): 4
 The Wheel of Life is a powerful tool for self-assessment and personal growth. By visualizing and reflecting on the different aspects of our life, we can identify areas that need improvement and create strategies to achieve a more balanced and fulfilling life.
 
 Feel free to use and modify this tool according to your needs. Happy wheeling!
-```
 
  
