@@ -1,5 +1,4 @@
 # Wheel of Life - README
-```markdown
 
 
 ## Introduction
