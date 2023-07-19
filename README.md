@@ -23,6 +23,12 @@ Below are some screenshots of the Wheel of Life tool:
 
 _Figure 1: Plotly Radar Chart_
 
+### Screenshot 2: Dash Wheel of Life
+
+![Dash Wheel of Life](/screenshots/wheel-of-life-dash.png)
+
+_Figure 2: Dash Wheel of Life_
+
 ## Examples
 
 Below are some examples of how the Wheel of Life can be used:
