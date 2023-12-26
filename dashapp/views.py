@@ -1,11 +1,13 @@
 # Importando as bibliotecas necessárias
 import plotly.graph_objects as go
 import pandas as pd
-from dash import html, dcc, Input, Output
+from dash import html, dcc, Input, Output, State
 from plotly.subplots import make_subplots
 import datetime
 import numpy as np
-from dashapp import app, server
+from dashapp import app, server, database, bcrypt
+from dashapp.models import Usuario
+from flask_login import login_user, logout_user, current_user
 
 # %%
 # fazendo um dicionario com os pilares e as perguntas
@@ -160,7 +162,7 @@ def atualizar_grafico():
 # Execute este aplicativo com `python app.py` e
 # visite http://127.0.0.1:8050/ em seu navegador.
 
-layout_dashboard = html.Div(children=[
+layout_dashboard = html.Div([
     html.H2(children='Ferramenta de AutoConhecimento'), # Título do aplicativo
 
     html.Div(children='''
@@ -172,25 +174,117 @@ layout_dashboard = html.Div(children=[
         figure=fig
     ), # Gráfico a ser exibido no aplicativo
     html.Br(),
-    html.H2(children='Em uma escala de 1 a 10'), # Título do aplicativo
-], style={"text-align": "center", "font-family":"Arial"}) # Estilo para o layout do aplicativo e o formato do texto
+    html.H2(children='Em uma escala de 1 a 10') # Título do aplicativo
+]) # Estilo para o layout do aplicativo e o formato do texto
+
+layout_homepage = html.Div([
+    dcc.Location(id="homepage_url", refresh=True),
+    html.H2("Criar conta"),
+    html.Div([
+        dcc.Input(id="email", type="email", placeholder="Seu e-mail"),
+        dcc.Input(id="senha", type="password", placeholder="Sua senha"),
+        html.Button("Criar conta", id="botao-criarconta"),
+        dcc.Link("Já tem uma conta? Faça seu login aqui", "/login")
+    ], className="form-column")
+])
+
+layout_login = html.Div([
+    dcc.Location(id="login_url", refresh=True),
+    html.H2("Faça seu Login"),
+    html.Div([
+        dcc.Input(id="email", type="email", placeholder="Seu e-mail"),
+        dcc.Input(id="senha", type="password", placeholder="Sua senha"),
+        html.Button("Faça Login", id="botao-login"),
+        dcc.Link("Não tem uma conta? Crie aqui", "/")
+    ], className="form-column")
+])
+
+layout_erro = html.Div([
+    dcc.Location(id="erro_url", refresh=True),
+    html.H2("Erro de Acesso"),
+    html.Div([
+        dcc.Link("Clique aqui para criar uma conta", "/"),
+        dcc.Link("Clique aqui para fazer login", "/login")
+    ], className="form-column")
+])
 
 # Definindo o layout do aplicativo
-app.layout = html.Div(children=[
-    dcc.Location(id='url', refresh=False),
-    html.Div(id='conteudo_pagina')
-], style={"text-align": "center", "font-family":"Arial"}) # Estilo para o layout do aplicativo e o formato do texto
+app.layout = html.Div([
+    dcc.Location(id="url", refresh=False),
+    html.Div([
+        html.H1("Dashapp"),
+        html.Div(id="navbar"),
+    ], className="align-left-right"),
+    html.Div(id="conteudo_pagina")
+])
 
-@app.callback(Output('conteudo_pagina', 'children'), Input('url', 'pathname'))
+# pathname
+@app.callback(Output("conteudo_pagina", "children"), Input("url", "pathname"))
 def carregar_pagina(pathname):
-    if pathname == '/':
-        return homepage()
-    elif pathname == '/dashboard':
-        return layout_dashboard
-    elif pathname == '/login':
-        return login()
-    else:
-        return '404'
+    if pathname == "/":
+        return layout_homepage
+    elif pathname == "/dashboard":
+        if current_user.is_authenticated:
+            return layout_dashboard
+        else:
+            return dcc.Link("Usuario não autenticado, faça login aqui", "/login")
+    elif pathname == "/login":
+        return layout_login
+    elif pathname == "/erro":
+        return layout_erro
+    elif pathname == "/logout":
+        if current_user.is_authenticated:
+            logout_user()
+        return layout_login
+    
+@app.callback(Output("navbar", "children"), Input("url", "pathname"))
+def exibir_navbar(pathname):
+    if pathname != "/logout":
+        if current_user.is_authenticated:
+            return html.Div([
+                dcc.Link("Dashboard", "/dashboard", className="button-link"),
+                dcc.Link("Logout", "/logout", className="button-link"),
+                dcc.Link("Nova Tela", "/nova_tela", className="button-link", refresh=True)
+            ])
+        else:
+            return html.Div([
+                dcc.Link("Login", "/login", className="button-link")
+            ])
+    
+@app.callback(Output("homepage_url", "pathname"), Input("botao-criarconta", "n_clicks"), 
+              [State("email", "value"), State("senha", "value")])
+def criar_conta(n_clicks, email, senha):
+    if n_clicks:
+        # vou criar a conta
+        # verificar se já existe um usuário com essa conta
+        usuario  = Usuario.query.filter_by(email=email).first() # finalizar
+        if usuario:
+            return "/login"
+        else:
+            # criar o usuario
+            senha_criptografada = bcrypt.generate_password_hash(senha).decode("utf-8")
+            usuario = Usuario(email=email, senha=senha_criptografada) # 123456
+            database.session.add(usuario)
+            database.session.commit()
+            login_user(usuario)
+            return "/dashboard"
+        
+@app.callback(Output("login_url", "pathname"), Input("botao-login", "n_clicks"), 
+              [State("email", "value"), State("senha", "value")])
+def criar_conta(n_clicks, email, senha):
+    if n_clicks:
+        # vou criar a conta
+        # verificar se já existe um usuário com essa conta
+        usuario  = Usuario.query.filter_by(email=email).first() # finalizar
+        if not usuario:
+            return "/"
+        else:
+            # criar o usuario
+            if bcrypt.check_password_hash(usuario.senha.encode("utf-8"), senha):
+                login_user(usuario)
+                return "/dashboard"
+            else:
+                return "/erro"
 
 # colocando varios sliders para cada pilar da Roda da Vida
 for pilar in lista_pilares:
@@ -274,10 +368,6 @@ print(f'Pilares que preciso melhorar: {pilares_melhorar}')
 print(f'Pilares que estao bons: {pilares_bons}')
 print(f'Pilares que estao otimos: {pilares_otimos}')
 
-@server.route('/')
-def homepage():
-    return "homepage"
-
-@server.route('/login')
-def login():
-    return "login"
+@server.route("/nova_tela")
+def nova_tela():
+    return "Você está na página criada pelo Flask"

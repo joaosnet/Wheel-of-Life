@@ -2,7 +2,7 @@ from dash import Dash
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
-
+from segredos import SECRET_KEY
 
 # Inicializando o aplicativo Dash
 app = Dash(__name__)
@@ -11,7 +11,7 @@ app.config.suppress_callback_exceptions = True
 
 server.config.update(
     SQLALCHEMY_DATABASE_URI='sqlite:///db.sqlite3',
-    SECRET_KEY= "sasdadaasdcfevrqeqweeqw",
+    SECRET_KEY= SECRET_KEY,
     SQLALCHEMY_TRACK_MODIFICATIONS=False
 )
 

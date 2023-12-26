@@ -1,0 +1,95 @@
+/* Style for text inputs */
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Style for password inputs */
+  input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Style for email inputs */
+  input[type="email"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Style for submit buttons in input elements */
+  input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for submit buttons in input elements */
+  input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style for buttons in button elements */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for buttons in button elements */
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+/* CSS class for styling a form wrapper as a column */
+.form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust the spacing as needed */
+    max-width: 400px; /* Set a maximum width for the form wrapper */
+    margin: 0; /* Center the form on the page */
+  }
+  
+  /* Additional style for form elements (optional) */
+  .form-column form {
+    width: 100%;
+  }
+  
+  .form-column label,
+  .form-column input,
+  .form-column button {
+    width: 100%;
+  }
+  
+  .align-left-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 10px;
+  }
