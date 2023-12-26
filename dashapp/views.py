@@ -58,7 +58,7 @@ if mes_referencia not in df.columns:
 #     # adicionando os dados do mes atual ao df
 #     df = df.join(df0)
 
-df.to_csv('instance/dados.csv', sep=';', encoding='utf-8')
+df.to_csv('instance/dados.csv', sep=';', index_col=0, encoding='utf-8')
 
 # display(df)
 
