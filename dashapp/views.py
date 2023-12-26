@@ -46,7 +46,7 @@ df0 = pd.DataFrame(lista_respostas, index=lista_pilares, columns=[f'{mes_referen
 # %%
 # adicionando df0 ao df
 # lendo os dados
-df = pd.read_csv('dados.csv', sep=';', index_col=0, encoding='utf-8')
+df = pd.read_csv('instance/dados.csv', sep=';', index_col=0, encoding='utf-8')
 # transformando o csv em Dataframe
 df = pd.DataFrame(df)
 
@@ -58,7 +58,7 @@ if mes_referencia not in df.columns:
 #     # adicionando os dados do mes atual ao df
 #     df = df.join(df0)
 
-df.to_csv('dados.csv', sep=';', encoding='utf-8')
+df.to_csv('instance/dados.csv', sep=';', encoding='utf-8')
 
 # display(df)
 
@@ -67,7 +67,7 @@ df.to_csv('dados.csv', sep=';', encoding='utf-8')
 
 # %%
 # Agora faremos um dataframe separado para Roda do Autocuidado que tem os seguintes pilares 'Saúde', 'Psicológico', 'Emocional', 'Pessoal', 'Profissional', 'Espiritual', para isso pegarei algumas informacoes que ja existem no df para o df1
-df1 = pd.read_csv('dados2.csv', sep=';', index_col=0, encoding='utf-8')
+df1 = pd.read_csv('instance/dados2.csv', sep=';', index_col=0, encoding='utf-8')
 # adicionando as colunas que faltam para isso faremos perguntas sobre esses pilares Psicologico e Pessoal
 pilares_auto = {"Psicologico": "Em uma escala de 0 a 10, qual é o seu nível de satisfação com sua saúde psicológica e bem-estar?",
                 "Pessoal": "Em uma escala de 0 a 10, qual é o seu nível de satisfação com sua saúde pessoal e autocuidado?"}
@@ -76,7 +76,7 @@ qtde_linhas = len(pilares_auto)
 #adicionando as linhas que faltam
 if mes_referencia not in df1.columns:
     df1[mes_referencia] = 0
-    df1.to_csv('dados2.csv', sep=';', encoding='utf-8')
+    df1.to_csv('instance/dados2.csv', sep=';', encoding='utf-8')
 
 
 # %% [markdown]
@@ -92,7 +92,7 @@ def atualizar_dataframe(categoria, novo_valor):
     df.loc[df.index == categoria, mes_referencia] = novo_valor
     
     # salvando as modificacoes no arquivo csv
-    df.to_csv('dados.csv', sep=';', encoding='utf-8')
+    df.to_csv('instance/dados.csv', sep=';', encoding='utf-8')
     
 
 def atualizar_dataframe2(categoria, novo_valor):
@@ -100,7 +100,7 @@ def atualizar_dataframe2(categoria, novo_valor):
 
     df1.loc[df1.index == categoria, mes_referencia] = novo_valor
 
-    df1.to_csv('dados2.csv', sep=';', encoding='utf-8')
+    df1.to_csv('instance/dados2.csv', sep=';', encoding='utf-8')
 
 # %% [markdown]
 # ### Mostrando os Graficos
