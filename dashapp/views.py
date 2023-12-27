@@ -47,18 +47,16 @@ df0 = pd.DataFrame(lista_respostas, index=lista_pilares, columns=[f'{mes_referen
 # adicionando df0 ao df
 # lendo os dados
 df = pd.read_csv('instance/dados.csv', sep=';', index_col=0, encoding='utf-8')
-# transformando o csv em Dataframe
-df = pd.DataFrame(df)
+
 
 #verificando se ja existe a coluna do mes atual
 if mes_referencia not in df.columns:
     # modifique apenas os valores da coluna
     df[mes_referencia] = df0
+    df.to_csv('instance/dados.csv', sep=';', encoding='utf-8')
 # else:
 #     # adicionando os dados do mes atual ao df
 #     df = df.join(df0)
-
-df.to_csv('instance/dados.csv', sep=';', index_col=0, encoding='utf-8')
 
 # display(df)
 
@@ -75,14 +73,9 @@ lista_respostas_auto = []
 qtde_linhas = len(pilares_auto)
 #adicionando as linhas que faltam
 if mes_referencia not in df1.columns:
-    df1[mes_referencia] = 0
+    df1[mes_referencia] = df[mes_referencia]
     df1.to_csv('instance/dados2.csv', sep=';', encoding='utf-8')
 
-
-# %% [markdown]
-# ### função que atualize o DataFrame com novos valores
-
-# %%
 # Crie uma função que atualize o DataFrame com novos valores
 def atualizar_dataframe(categoria, novo_valor):
     # importando as variaveis globais
@@ -348,25 +341,25 @@ def update_figure(profissional, financeiro, intelectual, servir, saude, social, 
     fig = atualizar_grafico()
     return fig
 
-df[mes_referencia] = df[mes_referencia].replace([np.inf, -np.inf], np.nan).fillna(0).astype(int)
-df.sort_values(by=[mes_referencia], inplace=True, ascending=True)
-# encontrando a linha com o menor valor e atribuindo a prioridade como alta
-# dizendo quais o pilares que tenho que melhorar
-pilares_melhorar = []
-for i in range(0, 3):
-    pilares_melhorar.append(df.index[i])
-# dizendo quais o pilares que estao bons
-pilares_bons = []
-for i in range(3, 6):
-    pilares_bons.append(df.index[i])
-# dizendo quais o pilares que estao otimos
-pilares_otimos = []
-for i in range(6, 9):
-    pilares_otimos.append(df.index[i])
+# df[mes_referencia] = df[mes_referencia].replace([np.inf, -np.inf], np.nan).fillna(0).astype(int)
+# df.sort_values(by=[mes_referencia], inplace=True, ascending=True)
+# # encontrando a linha com o menor valor e atribuindo a prioridade como alta
+# # dizendo quais o pilares que tenho que melhorar
+# pilares_melhorar = []
+# for i in range(0, 3):
+#     pilares_melhorar.append(df.index[i])
+# # dizendo quais o pilares que estao bons
+# pilares_bons = []
+# for i in range(3, 6):
+#     pilares_bons.append(df.index[i])
+# # dizendo quais o pilares que estao otimos
+# pilares_otimos = []
+# for i in range(6, 9):
+#     pilares_otimos.append(df.index[i])
     
-print(f'Pilares que preciso melhorar: {pilares_melhorar}')
-print(f'Pilares que estao bons: {pilares_bons}')
-print(f'Pilares que estao otimos: {pilares_otimos}')
+# print(f'Pilares que preciso melhorar: {pilares_melhorar}')
+# print(f'Pilares que estao bons: {pilares_bons}')
+# print(f'Pilares que estao otimos: {pilares_otimos}')
 
 @server.route("/nova_tela")
 def nova_tela():
