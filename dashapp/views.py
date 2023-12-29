@@ -117,58 +117,90 @@ for name in df1:
                                   fill = 'toself', 
                                   name = name,
                                   line_shape="spline"), row=1, col=2) # r = raio, theta = angulo, name = nome da legenda, line_shape = tipo de linha, fill = preencher o grafico
-
 # atualizando o layout do gráfico
-fig.update_layout(height=700, width=1200) 
+fig.update_layout(height=700) 
 fig.update_layout(polar=dict(radialaxis=dict(range=[0, 10])), polar2=dict(radialaxis=dict(range=[0, 10])))
 
-# criando funcao para atuilizar o grafico
+# criando função para atualizar o gráfico
 def atualizar_grafico():
-    # importando as variaveis globais
+    # importando as variáveis globais
     global df
     global df1
     
-    # atualizando o grafico
+    # atualizando o gráfico
     fig = make_subplots(rows=1, cols=2, subplot_titles=("Roda da Vida", "Roda do Autocuidado"), specs=[[{'type': 'polar'}]*2])
     
-    # plotando cada grafico de radar que esta dentro do dataframe com um loop
+    # plotando cada gráfico de radar que está dentro do dataframe com um loop
     for name in df:
-        fig.add_trace(go.Scatterpolar(r = df[name], 
-                                      theta = df.index, 
-                                      fill = 'toself', 
-                                      name = name,
-                                      line_shape="spline"), row=1, col=1) # r = raio, theta = angulo, name = nome da legenda
+        fig.add_trace(go.Scatterpolar(r=df[name], 
+                                      theta=df.index, 
+                                      fill='toself', 
+                                      name=name,
+                                      line_shape="spline"), row=1, col=1) # r = raio, theta = ângulo, name = nome da legenda
     
-    # plotando cada grafico de radar que esta dentro do dataframe com um loop
+    # plotando cada gráfico de radar que está dentro do dataframe com um loop
     for name in df1:
-        fig.add_trace(go.Scatterpolar(r = df1[name], 
-                                      theta = df1.index, 
-                                      fill = 'toself', 
-                                      name = name,
-                                      line_shape="spline"), row=1, col=2) # r = raio, theta = angulo, name = nome da legenda, line_shape = tipo de linha, fill = preencher o grafico    
+        fig.add_trace(go.Scatterpolar(r=df1[name], 
+                                      theta=df1.index, 
+                                      fill='toself', 
+                                      name=name,
+                                      line_shape="spline"), row=1, col=2) # r = raio, theta = ângulo, name = nome da legenda, line_shape = tipo de linha, fill = preencher o gráfico    
 
     # atualizando o layout do gráfico
-    fig.update_layout(height=700, width=1200) 
+    fig.update_layout(height=500) 
     fig.update_layout(polar=dict(radialaxis=dict(range=[0, 10])), polar2=dict(radialaxis=dict(range=[0, 10])))
     return fig
 
 # Execute este aplicativo com `python app.py` e
 # visite http://127.0.0.1:8050/ em seu navegador.
 
-layout_dashboard = html.Div([
-    html.H2(children='Ferramenta de AutoConhecimento'), # Título do aplicativo
+# layout_dashboard = html.Div([
+#     html.H2(children='Ferramenta de AutoConhecimento'), # Título do aplicativo
 
-    html.Div(children='''
-        Uma ferramenta para te ajudar a se conhecer melhor e a ter uma vida mais equilibrada.
-    '''), # Descrição do aplicativo
+#     html.Div(children='''
+#         Uma ferramenta para te ajudar a se conhecer melhor e a ter uma vida mais equilibrada.
+#     '''), # Descrição do aplicativo
 
-    dcc.Graph(
-        id='Roda da Vida e Autocuidado',
-        figure=fig
-    ), # Gráfico a ser exibido no aplicativo
-    html.Br(),
-    html.H2(children='Em uma escala de 1 a 10') # Título do aplicativo
-]) # Estilo para o layout do aplicativo e o formato do texto
+#     dcc.Graph(
+#         id='Roda da Vida e Autocuidado',
+#         figure=fig
+#     ), # Gráfico a ser exibido no aplicativo
+#     html.Br(),
+#     html.H2(children='Em uma escala de 1 a 10') # Título do aplicativo
+# ]) # Estilo para o layout do aplicativo e o formato do texto
+
+# Definindo a coluna esquerda
+left_column = html.Div(
+    id="left-column",
+    className="four columns",
+    children=[
+        html.H5(children='Ferramenta de AutoConhecimento'), # Título do aplicativo
+        html.Div(children='''Uma ferramenta para te ajudar a se conhecer melhor e a ter uma vida mais equilibrada.''')
+        ] # Descrição do aplicativo    ]
+)
+
+# Layout do Dashboard Principal
+layout_dashboard = html.Div(
+    id="app-container",
+    children=[
+        # Coluna esquerda
+        left_column,
+        # Coluna direita
+        html.Div(
+            id="right-column",
+            className="eight columns",
+            children=[
+                html.Div(
+                    children=[
+                        html.B("Roda da Vida e Autocuidado"),
+                        html.Hr(),
+                        dcc.Graph(id="Roda da Vida e Autocuidado", figure=fig),
+                    ],
+                ),
+            ],
+        ),
+    ],
+)
 
 layout_homepage = html.Div([
     dcc.Location(id="homepage_url", refresh=True),
@@ -204,10 +236,12 @@ layout_erro = html.Div([
 # Definindo o layout do aplicativo
 app.layout = html.Div([
     dcc.Location(id="url", refresh=False),
-    html.Div([
-        html.H1("Dashapp"),
+    # Banner
+    html.Div(id="banner", children=[
+        html.Img(src=app.get_asset_url("logo.png")),
+        # html.H1("Dashapp"),
         html.Div(id="navbar"),
-    ], className="align-left-right"),
+    ], className="banner"),
     html.Div(id="conteudo_pagina")
 ])
 
@@ -220,7 +254,7 @@ def carregar_pagina(pathname):
         if current_user.is_authenticated:
             return layout_dashboard
         else:
-            return dcc.Link("Usuario não autenticado, faça login aqui", "/login")
+            return dcc.Link("Usuário não autenticado, faça login aqui", "/login")
     elif pathname == "/login":
         return layout_login
     elif pathname == "/erro":
@@ -234,11 +268,17 @@ def carregar_pagina(pathname):
 def exibir_navbar(pathname):
     if pathname != "/logout":
         if current_user.is_authenticated:
-            return html.Div([
-                dcc.Link("Dashboard", "/dashboard", className="button-link"),
-                dcc.Link("Logout", "/logout", className="button-link"),
-                dcc.Link("Nova Tela", "/nova_tela", className="button-link", refresh=True)
-            ])
+            if pathname == "/dashboard":
+                return html.Div([
+                    dcc.Link("Logout", "/logout", className="button-link"),
+                    dcc.Link("Nova Tela", "/nova_tela", className="button-link", refresh=True)
+                ])
+            else:
+                return html.Div([
+                    dcc.Link("Dashboard", "/dashboard", className="button-link"),
+                    dcc.Link("Logout", "/logout", className="button-link"),
+                    # dcc.Link("Nova Tela", "/nova_tela", className="button-link", refresh=True)
+                ])
         else:
             return html.Div([
                 dcc.Link("Login", "/login", className="button-link")
@@ -250,11 +290,11 @@ def criar_conta(n_clicks, email, senha):
     if n_clicks:
         # vou criar a conta
         # verificar se já existe um usuário com essa conta
-        usuario  = Usuario.query.filter_by(email=email).first() # finalizar
+        usuario = Usuario.query.filter_by(email=email).first() # finalizar
         if usuario:
             return "/login"
         else:
-            # criar o usuario
+            # criar o usuário
             senha_criptografada = bcrypt.generate_password_hash(senha).decode("utf-8")
             usuario = Usuario(email=email, senha=senha_criptografada) # 123456
             database.session.add(usuario)
@@ -268,20 +308,21 @@ def criar_conta(n_clicks, email, senha):
     if n_clicks:
         # vou criar a conta
         # verificar se já existe um usuário com essa conta
-        usuario  = Usuario.query.filter_by(email=email).first() # finalizar
+        usuario = Usuario.query.filter_by(email=email).first() # finalizar
         if not usuario:
             return "/"
         else:
-            # criar o usuario
+            # criar o usuário
             if bcrypt.check_password_hash(usuario.senha.encode("utf-8"), senha):
                 login_user(usuario)
                 return "/dashboard"
             else:
                 return "/erro"
+            
 
-# colocando varios sliders para cada pilar da Roda da Vida
+# colocando vários sliders para cada pilar da Roda da Vida
 for pilar in lista_pilares:
-    layout_dashboard.children.append(html.Div(children=[
+    left_column.children.append(html.Div(children=[
         html.Br(),
         html.Label(pilares[pilar]), # Rótulo para o controle deslizante
         dcc.Slider(
@@ -293,9 +334,8 @@ for pilar in lista_pilares:
         ),
     ], style={'padding': 10, 'flex': 10, "text-align": "left"})) # Estilo para os componentes interativos
 
-# colocando varios sliders para cada pilar da Roda do Autocuidado
 for pilar in pilares_auto.keys():
-    layout_dashboard.children.append(html.Div(children=[
+    left_column.children.append(html.Div(children=[
         html.Br(),
         html.Label(pilares_auto[pilar]), # Rótulo para o controle deslizante
         dcc.Slider(
@@ -309,7 +349,7 @@ for pilar in pilares_auto.keys():
 
 
 
-# fazendo funcões para atualizar o grafico e o dataframe
+# fazendo funções para atualizar o gráfico e o dataframe
 @app.callback(
     Output('Roda da Vida e Autocuidado', 'figure'),
     Input('Profissional', 'value'),
@@ -337,7 +377,7 @@ def update_figure(profissional, financeiro, intelectual, servir, saude, social, 
     atualizar_dataframe('Emocional', emocional)
     atualizar_dataframe2('Psicologico', psicolologico)
     atualizar_dataframe2('Pessoal', pessoal)
-    # atualizando o grafico
+    # atualizando o gráfico
     fig = atualizar_grafico()
     return fig
 
@@ -348,18 +388,18 @@ def update_figure(profissional, financeiro, intelectual, servir, saude, social, 
 # pilares_melhorar = []
 # for i in range(0, 3):
 #     pilares_melhorar.append(df.index[i])
-# # dizendo quais o pilares que estao bons
+# # dizendo quais o pilares que estão bons
 # pilares_bons = []
 # for i in range(3, 6):
 #     pilares_bons.append(df.index[i])
-# # dizendo quais o pilares que estao otimos
+# # dizendo quais o pilares que estão ótimos
 # pilares_otimos = []
 # for i in range(6, 9):
 #     pilares_otimos.append(df.index[i])
     
 # print(f'Pilares que preciso melhorar: {pilares_melhorar}')
-# print(f'Pilares que estao bons: {pilares_bons}')
-# print(f'Pilares que estao otimos: {pilares_otimos}')
+# print(f'Pilares que estão bons: {pilares_bons}')
+# print(f'Pilares que estão ótimos: {pilares_otimos}')
 
 @server.route("/nova_tela")
 def nova_tela():
