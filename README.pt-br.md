@@ -4,7 +4,7 @@
 ![Forks do GitHub](https://img.shields.io/github/forks/joaosnet/wheel-of-Life?style=for-the-badge)
 ![Problemas abertos do Bitbucket](https://img.shields.io/bitbucket/issues/joaosnet/wheel-of-Life?style=for-the-badge)
 ![Pull requests abertos do Bitbucket](https://img.shields.io/bitbucket/pr-raw/joaosnet/wheel-of-Life?style=for-the-badge)
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/jonatasemidio/multilanguage-readme-pattern/blob/master/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/joaosnet/wheel-of-Life/blob/master/README.md)
 
 
 
