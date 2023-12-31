@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from segredos import SECRET_KEY
 
 # Inicializando o aplicativo Dash
-app = Dash(__name__)
+app = Dash(__name__, url_base_pathname='/dashboard/')
 server = app.server
 app.config.suppress_callback_exceptions = True
 

@@ -220,7 +220,7 @@ layout_login = html.Div([
         dcc.Input(id="email", type="email", placeholder="Seu e-mail"),
         dcc.Input(id="senha", type="password", placeholder="Sua senha"),
         html.Button("Faça Login", id="botao-login"),
-        dcc.Link("Não tem uma conta? Crie aqui", "/")
+        dcc.Link("Não tem uma conta? Crie aqui", "/dashboard/")
     ], className="form-column")
 ])
 
@@ -228,7 +228,7 @@ layout_erro = html.Div([
     dcc.Location(id="erro_url", refresh=True),
     html.H2("Erro de Acesso"),
     html.Div([
-        dcc.Link("Clique aqui para criar uma conta", "/"),
+        dcc.Link("Clique aqui para criar uma conta", "/dashboard/"),
         dcc.Link("Clique aqui para fazer login", "/login")
     ], className="form-column")
 ])
@@ -238,7 +238,7 @@ app.layout = html.Div([
     dcc.Location(id="url", refresh=False),
     # Banner
     html.Div(id="banner", children=[
-        html.Img(src=app.get_asset_url("logo.png")),
+        html.Img(src=app.get_asset_url("fotos_site/logo.png")),
         # html.H1("Dashapp"),
         html.Div(id="navbar"),
     ], className="banner"),
@@ -248,7 +248,7 @@ app.layout = html.Div([
 # pathname
 @app.callback(Output("conteudo_pagina", "children"), Input("url", "pathname"))
 def carregar_pagina(pathname):
-    if pathname == "/":
+    if pathname == "/dashboard/":
         return layout_homepage
     elif pathname == "/dashboard":
         if current_user.is_authenticated:
@@ -310,7 +310,7 @@ def criar_conta(n_clicks, email, senha):
         # verificar se já existe um usuário com essa conta
         usuario = Usuario.query.filter_by(email=email).first() # finalizar
         if not usuario:
-            return "/"
+            return "/dashboard/"
         else:
             # criar o usuário
             if bcrypt.check_password_hash(usuario.senha.encode("utf-8"), senha):
@@ -401,6 +401,6 @@ def update_figure(profissional, financeiro, intelectual, servir, saude, social, 
 # print(f'Pilares que estão bons: {pilares_bons}')
 # print(f'Pilares que estão ótimos: {pilares_otimos}')
 
-@server.route("/nova_tela")
+@server.route("/")
 def nova_tela():
     return "Você está na página criada pelo Flask"
