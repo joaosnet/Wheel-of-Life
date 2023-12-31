@@ -17,7 +17,7 @@
       <header>
         <nav>
           <div class="logo-pinterest">
-            <svg
+            <!-- <svg
               height="40"
               viewBox="-3 -3 82 82"
               width="40"
@@ -31,7 +31,8 @@
                 fill-rule="evenodd"
               ></path>
             </svg>
-            <h1>FakePinterest</h1>
+            <h1>FakePinterest</h1> -->
+            <img src="{{ url_for('static', filename='fotos_site/logo.png') }}" />
           </div>
 
           <div class="restante-nav">
@@ -42,13 +43,13 @@
         </nav>
       </header>
 
-      <img src="{{ url_for('static', filename='fotos_site/fundo-login.png') }}" class="bg-imagem-pinterest" />
+      <img src="{{ url_for('static', filename='fotos_site/mikebrown99_Cheerful_Inspiring_Landscapes_A_vast_green_field_of_7307b2f5-9952-4942-8adc-eb6b75e06425.png') }}" class="bg-imagem-pinterest" />
 
       <div class="container-popup">
         {% block formulario %}
         <form method="POST" class="popup">
         {{ form.csrf_token }}
-          <svg
+          <!-- <svg
             height="40"
             viewBox="-3 -3 82 82"
             width="40"
@@ -61,9 +62,10 @@
               fill="#e60023"
               fill-rule="evenodd"
             ></path>
-          </svg>
+          </svg> -->
+          <img src="{{ url_for('static', filename='fotos_site/logo.png') }}"/>
 
-          <h2>Bem-vindo(a) ao FakePinterest</h2>
+          <h2>Bem-vindo(a)</h2>
 
           <div class="div-input">
             {{ form.email.label(class="label") }}

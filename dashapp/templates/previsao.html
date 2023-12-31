@@ -1,0 +1,111 @@
+{% extends "homepage.html" %}
+
+{% block title %}
+IA - Previsão de Preços
+{% endblock %}
+
+{% block body %}
+<body class="overflow-hidden">
+    <div class="container">
+      <header>
+        <nav>
+          <div class="logo-pinterest">
+            <img src="{{ url_for('static', filename='fotos_site/logo.png') }}" />
+          </div>
+
+        <div class="header">
+            <h1>Meus Links</h1>
+        </div>
+
+          <div class="restante-nav">
+            <a href="" class="link-nav">About</a>
+            <a href="" class="link-nav">Business</a>
+            <a href="" class="link-nav">Blog</a>
+          </div>
+        </nav>
+      </header>
+
+      <img src="{{ url_for('static', filename='fotos_site/mikebrown99_Cheerful_Inspiring_Landscapes_A_vast_green_field_of_7307b2f5-9952-4942-8adc-eb6b75e06425.png') }}" class="bg-imagem-pinterest" />
+    
+    <div class="container-popup">
+        <div class="popup">
+            <!-- Criando as entradas dos valores -->
+            <form action="/previsao" method="post">
+                <label for="latitude">Latitude:</label><br>
+                <input type="number" id="latitude" name="latitude" step="0.00001" value="0"><br>
+                <label for="longitude">Longitude:</label><br>
+                <input type="number" id="longitude" name="longitude" step="0.00001" value="0"><br>
+                <label for="accommodates">Accommodates:</label><br>
+                <input type="number" id="accommodates" name="accommodates" step="1" value="0"><br>
+                <label for="bathrooms">Bathrooms:</label><br>
+                <input type="number" id="bathrooms" name="bathrooms" step="1" value="0"><br>
+                <label for="bedrooms">Bedrooms:</label><br>
+                <input type="number" id="bedrooms" name="bedrooms" step="1" value="0"><br>
+                <label for="beds">Beds:</label><br>
+                <input type="number" id="beds" name="beds" step="1" value="0"><br>
+                <label for="extra_people">Extra People:</label><br>
+                <input type="number" id="extra_people" name="extra_people" step="0.01" value="0"><br>
+                <label for="minimum_nights">Minimum Nights:</label><br>
+                <input type="number" id="minimum_nights" name="minimum_nights" step="1" value="0"><br>
+                <label for="ano">Ano:</label><br>
+                <input type="number" id="ano" name="ano" step="1" value="0"><br>
+                <label for="mes">Mês:</label><br>
+                <input type="number" id="mes" name="mes" step="1" value="0"><br>
+                <label for="n_amenities">Número de Amenities:</label><br>
+                <input type="number" id="n_amenities" name="n_amenities" step="1" value="0"><br>
+                <label for="host_listings_count">Número de Listagens do Host:</label><br>
+                <input type="number" id="host_listings_count" name="host_listings_count" step="1" value="0"><br>
+                <label for="host_is_superhost">Host is Superhost:</label><br>
+                <select id="host_is_superhost" name="host_is_superhost">
+                    <option value="0">Não</option>
+                    <option value="1">Sim</option>
+                </select><br>
+                <label for="instant_bookable">Instant Bookable:</label><br>
+                <select id="instant_bookable" name="instant_bookable">
+                    <option value="0">Não</option>
+                    <option value="1">Sim</option>
+                </select><br>
+                <label for="property_type">Tipo de Propriedade:</label><br>
+                <select id="property_type" name="property_type">
+                    <option value="Apartment">Apartment</option>
+                    <option value="Bed and breakfast">Bed and breakfast</option>
+                    <option value="Condominium">Condominium</option>
+                    <option value="Guest suite">Guest suite</option>
+                    <option value="Guesthouse">Guesthouse</option>
+                    <option value="Hostel">Hostel</option>
+                    <option value="House">House</option>
+                    <option value="Loft">Loft</option>
+                    <option value="Outros">Outros</option>
+                    <option value="Serviced apartment">Serviced apartment</option>
+                </select><br>
+                <label for="room_type">Tipo de Quarto:</label><br>
+                <select id="room_type" name="room_type">
+                    <option value="Entire home/apt">Entire home/apt</option>
+                    <option value="Hotel room">Hotel room</option>
+                    <option value="Private room">Private room</option>
+                    <option value="Shared room">Shared room</option>
+                </select><br>
+                <label for="cancellation_policy">Política de Cancelamento:</label><br>
+                <select id="cancellation_policy" name="cancellation_policy">
+                    <option value="flexible">flexible</option>
+                    <option value="moderate">moderate</option>
+                    <option value="strict">strict</option>
+                    <option value="strict_14_with_grace_period">strict_14_with_grace_period</option>
+                </select><br>
+                <input type="submit" value="Prever Valor do Imóvel">
+            </form>
+
+            <!-- Criando o valor previsto -->
+            {% if valor_predito %}
+                <p>{{ valor_predito }}</p>
+            {% endif %}
+
+            <!-- Exibindo a mensagem de erro, se houver -->
+            {% if error %}
+                <p>{{ error }}</p>
+            {% endif %}
+        </div>
+       
+    </div>
+</body>
+{% endblock %}

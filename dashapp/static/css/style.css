@@ -38,6 +38,13 @@ img {
   column-gap: 4px;
 }
 
+.logo-pinterest Img {
+  position: relative;
+  height: 5rem;
+  width: auto;
+  margin-left: 2%;
+}
+
 .link-nav {
   font-size: 16px;
   font-weight: 600;
@@ -67,7 +74,10 @@ img {
 .bg-imagem-pinterest {
   width: 100%;
   position: fixed;
-  top: 50vh;
+  top: 0vh;
+  /* colocando a imagem abaixo do nav */
+  z-index: -1;
+  height: 100%;
 }
 
 .container {
@@ -84,6 +94,13 @@ img {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   display: flex;
+}
+
+.container-popup Img {
+  position: relative;
+  height: 5rem;
+  width: auto;
+  margin-left: 2%;
 }
 
 .popup {
@@ -232,4 +249,59 @@ img {
 .bloco-input-botao {
   display: flex;
   column-gap: 20px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  /* background-color: #333; */
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  color: #000;
+}
+
+.link-aggregator {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+/* image link */
+.link-aggregator img {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.link-aggregator a {
+  display: block;
+  width: 200px;
+  height: 200px;
+  background-color: #fff;
+  color: #333;
+  text-decoration: none;
+  text-align: center;
+  line-height: 200px;
+  margin: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.link-aggregator a:hover {
+  transform: scale(1.1);
 }

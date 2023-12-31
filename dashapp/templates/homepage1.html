@@ -1,68 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Computer Engineer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
+{% extends "homepage.html" %}
 
-        .header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
+{% block title %}
+Portfolio - Computer Engineer
+{% endblock %}
 
-        .header h1 {
-            margin: 0;
-        }
+{% block body %}
+<body class="overflow-hidden">
+    <div class="container">
+      <header>
+        <nav>
+          <div class="logo-pinterest">
+            <img src="{{ url_for('static', filename='fotos_site/logo.png') }}" />
+          </div>
 
-        .link-aggregator {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
-        }
+        <div class="header">
+            <h1>Meus Links</h1>
+        </div>
 
-        .link-aggregator a {
-            display: block;
-            width: 200px;
-            height: 200px;
-            background-color: #fff;
-            color: #333;
-            text-decoration: none;
-            text-align: center;
-            line-height: 200px;
-            margin: 10px;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
+          <div class="restante-nav">
+            <a href="" class="link-nav">About</a>
+            <a href="" class="link-nav">Business</a>
+            <a href="" class="link-nav">Blog</a>
+          </div>
+        </nav>
+      </header>
 
-        .link-aggregator a:hover {
-            transform: scale(1.1);
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>Computer Engineer Portfolio</h1>
-    </div>
+      <img src="{{ url_for('static', filename='fotos_site/mikebrown99_Cheerful_Inspiring_Landscapes_A_vast_green_field_of_7307b2f5-9952-4942-8adc-eb6b75e06425.png') }}" class="bg-imagem-pinterest" />
 
     <div class="link-aggregator">
-        <a href="https://github.com/your-username" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/in/your-username" target="_blank">LinkedIn</a>
-        <a href="https://your-website.com" target="_blank">Personal Website</a>
-        <a href="https://blog.your-website.com" target="_blank">Blog</a>
-        <a href="/dash/" target="_blank">Roda da Vida</a>
-        <a href="https://behance.net/your-username" target="_blank">Behance</a>
+        <a href="https://github.com/joaosnet" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/joaonativi" target="_blank">LinkedIn</a>
+        <a href="https://www.solucoesinovadora.com/" target="_blank">Personal Website</a>
+        <a href="/dash/">Roda da Vida</a>
+        <a href="/previsao">Previsão de Preços</a>
     </div>
 </body>
-</html>
+{% endblock %}
