@@ -267,7 +267,7 @@ def update_right_column(profissional, financeiro, intelectual, servir, saude, so
 
 @server.route("/")
 def homepage():
-    return "Você está na página criada pelo Flask"
+    return render_template('homepage1.html')
 
 @server.route('/login', methods=['GET', 'POST'])
 def login():
