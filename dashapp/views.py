@@ -271,9 +271,9 @@ def update_right_column(profissional, financeiro, intelectual, servir, saude, so
 def homepage():
     return render_template('index.html')
 
-@server.route("/1")
-def homepage1():
-    return render_template('homepage1.html')
+# @server.route("/1")
+# def homepage1():
+#     return render_template('homepage1.html')
 
 @server.route('/login', methods=['GET', 'POST'])
 def login():
