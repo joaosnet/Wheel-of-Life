@@ -42,7 +42,6 @@ class WheelOfLife:
     
     def atualizar_grafico(self):
         fig = make_subplots(rows=1, cols=2, subplot_titles=("Roda da Vida", "Roda do Autocuidado"), specs=[[{'type': 'polar'}]*2])
-        
         for name in self.df:
             fig.add_trace(go.Scatterpolar(r=self.df[name], 
                                           theta=self.df.index, 
@@ -56,9 +55,17 @@ class WheelOfLife:
                                           fill='toself', 
                                           name=name,
                                           line_shape="spline"), row=1, col=2)
+            
         
-        fig.update_layout(height=500) 
+        
+        # colocando mais espaço entre os subplot_titles e os gráficos
+        fig.update_layout(margin=dict(t=50, b=50, l=50, r=50)) 
         fig.update_layout(polar=dict(radialaxis=dict(range=[0, 10])), polar2=dict(radialaxis=dict(range=[0, 10])))
+        # Mostrando apenas traco do mês atual como foco inicial
+        meses_sem_referencia = self.meses.copy()
+        meses_sem_referencia.remove(self.mes_referencia)
+        for mes in meses_sem_referencia:
+            fig.update_traces(visible='legendonly', selector=dict(name=mes))
         return fig
     
     ## Para cada um dos valores iniciais, é criado um objeto para retornar

@@ -211,6 +211,7 @@ def update_figure(profissional, financeiro, intelectual, servir, saude, social, 
     wheel.atualizar_dataframe2('Emocional', emocional)
     wheel.atualizar_dataframe2('Psicologico', psicolologico)
     wheel.atualizar_dataframe2('Pessoal', pessoal)
+    wheel.atualizar_dataframe2('Espiritual', espiritual)
     # atualizando o gráfico
     fig = wheel.atualizar_grafico()
     return fig
