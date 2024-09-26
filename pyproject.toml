@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "wheel-of-life"
+version = "0.1.0"
+description = ""
+authors = ["João Natividade <87316339+joaosnet@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+dash = "^2.18.1"
+flask = "^3.0.3"
+numpy = "^2.1.1"
+pandas = "^2.2.3"
+joblib = "^1.4.2"
+flask-login = "^0.6.3"
+werkzeug = "^3.0.4"
+flask-bcrypt = "^1.0.1"
+flask-sqlalchemy = "^3.1.1"
+python-dotenv = "^1.0.1"
+flask-wtf = "^1.2.1"
+email-validator = "^2.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
